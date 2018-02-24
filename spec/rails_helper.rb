@@ -7,6 +7,8 @@ require 'database_cleaner'
 
 ActiveRecord::Migration.maintain_test_schema!
 
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
@@ -16,8 +18,12 @@ RSpec.configure do |config|
   #facotry_bot methods
   config.include FactoryBot::Syntax::Methods
 
+  #rspec request spec_helper
+  config.include RequestSpecHelper, type: :request
+
 #start by truncatig all tables but then use the faster transaction strategy the rest of the time
   config.before(:suite) do
+    FactoryBot.find_definitions
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
   end
