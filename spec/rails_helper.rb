@@ -14,10 +14,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   #facotry_bot methods
-  config.include FactoryBot:Syntax:Methods
+  config.include FactoryBot::Syntax::Methods
 
 #start by truncatig all tables but then use the faster transaction strategy the rest of the time
-  config.before (suite) do
+  config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
   end
@@ -31,9 +31,9 @@ end
 
 
 
-Shoulda:Matchers.configure do |config|
+Shoulda::Matchers.configure do |config|
   config.integrate do |with|
-    with.test framework :rspec
+    with.test_framework :rspec
     with.library :rails
   end
 end
