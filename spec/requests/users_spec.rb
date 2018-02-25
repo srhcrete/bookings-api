@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Bookings API', type: :request do
+RSpec.describe 'Users API', type: :request do
   #initialize test data
   let!(:users) { create_list(:user, 10) }
   let(:user_id) { users.first.id }
