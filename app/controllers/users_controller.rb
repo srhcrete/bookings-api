@@ -29,4 +29,15 @@ class UsersController < ApplicationController
     @user.destroy
     head :no_content
   end
+
+  private
+
+  def user_params
+    #whitelist params
+    params.permit(:email, :password)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 end
